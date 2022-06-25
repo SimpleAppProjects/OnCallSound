@@ -1,12 +1,10 @@
 package com.thewizrd.oncallsound
 
 import android.app.Application
-import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 class App : Application() {
-    private val applicationScope = MainScope()
-
     override fun onCreate() {
         super.onCreate()
 
@@ -14,12 +12,13 @@ class App : Application() {
             override val application: Application = this@App
         }
 
-        applicationScope.launch {
+        appDeps.appScope.launch {
             appDeps.callMonitorService.init()
         }
     }
 
     override fun onTerminate() {
+        appDeps.appScope.cancel()
         super.onTerminate()
     }
 }

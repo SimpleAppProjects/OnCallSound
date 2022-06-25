@@ -41,7 +41,7 @@ class CallMonitorService(context: Context) {
             val executor = Executors.newSingleThreadExecutor()
             mTelephonyManager.registerTelephonyCallback(
                 executor,
-                CallStateCallback(executor).also { callStateCallback = it }
+                CallStateCallback().also { callStateCallback = it }
             )
         } else {
             val phoneStateListener = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
